@@ -7,6 +7,7 @@ import (
 
 	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/ethclient"
+	"github.com/ququzone/go-common/env"
 )
 
 var headerService *HeaderService
@@ -32,7 +33,7 @@ func (s *HeaderService) AddSubscriber(sub Subscriber) {
 
 func GetHeaderService() (*HeaderService, error) {
 	if headerService == nil {
-		client, err := ethclient.Dial("wss://kovan.infura.io/ws/v3/d112d1825c0b481b9d4671f611b6a1b9")
+		client, err := ethclient.Dial(env.GetNonEmpty("INFURA_WS_ENDPOINT"))
 		if err != nil {
 			return nil, err
 		}
